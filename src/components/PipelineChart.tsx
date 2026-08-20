@@ -1,6 +1,7 @@
 "use client";
 
 import { CycleState, ModeConfig, N, PIPE_DEPTH, STAGES } from "@/lib/sim";
+import Explain from "./Explain";
 
 const RH = 22;
 const LABEL = 92;
@@ -51,6 +52,8 @@ export default function PipelineChart({
           ))}
         </div>
       </header>
+
+      <Explain panel="schedule" />
 
       <div className="p-3">
         <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full">

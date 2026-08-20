@@ -82,15 +82,47 @@ export interface StageDef {
   id: string;
   label: string;
   sub: string;
+  /** The same step, said the way you'd say it in a kitchen. */
+  analogy: string;
+  /** Live narration template; {i} {a} {b} {p} are filled in per cycle. */
+  narrate: string;
   /** Tailwind-ready hex used consistently across every panel. */
   color: string;
 }
 
 export const STAGES: StageDef[] = [
-  { id: "fetch", label: "FETCH", sub: "i → BRAM addr", color: "#22d3ee" },
-  { id: "load", label: "LOAD", sub: "BRAM → regs", color: "#a78bfa" },
-  { id: "mul", label: "MUL", sub: "DSP48 a×b", color: "#fbbf24" },
-  { id: "acc", label: "ACC", sub: "acc += p", color: "#34d399" },
+  {
+    id: "fetch",
+    label: "FETCH",
+    sub: "i → BRAM addr",
+    analogy: "calling out an order number so the pantry knows what to go get",
+    narrate: "shouting for pair {i}",
+    color: "#22d3ee",
+  },
+  {
+    id: "load",
+    label: "LOAD",
+    sub: "BRAM → regs",
+    analogy: "the pantry sliding the two ingredients across the counter",
+    narrate: "pair {i} lands on the counter — {a} and {b}",
+    color: "#a78bfa",
+  },
+  {
+    id: "mul",
+    label: "MUL",
+    sub: "DSP48 a×b",
+    analogy: "the stand mixer combining those two ingredients into one",
+    narrate: "the mixer works pair {i}: {a} × {b} = {p}",
+    color: "#fbbf24",
+  },
+  {
+    id: "acc",
+    label: "ACC",
+    sub: "acc += p",
+    analogy: "tipping that result into the pot that has been simmering all along",
+    narrate: "pair {i}'s {p} goes into the pot",
+    color: "#34d399",
+  },
 ];
 
 /** One launch group travelling down the pipeline. */
@@ -102,6 +134,16 @@ export interface Token {
   b: number[];
   prod: number[];
   sum: number;
+}
+
+/** Fill a stage's narration template from the token sitting in that stage. */
+export function narrate(stage: number, t: Token): string {
+  const many = t.idx.length > 1;
+  return STAGES[stage].narrate
+    .replace("{i}", many ? `${t.idx[0]}\u2013${t.idx[t.idx.length - 1]}` : String(t.idx[0]))
+    .replace("{a}", many ? t.a.join(", ") : String(t.a[0]))
+    .replace("{b}", many ? t.b.join(", ") : String(t.b[0]))
+    .replace("{p}", many ? String(t.sum) : String(t.prod[0]));
 }
 
 export interface CycleState {

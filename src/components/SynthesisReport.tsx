@@ -1,6 +1,7 @@
 "use client";
 
 import { CLOCK_MHZ, Estimate, ModeConfig, NS_PER_CYCLE } from "@/lib/sim";
+import Explain from "./Explain";
 
 // Budget of a small Artix-7 class part (XC7A35T).
 const DEVICE = { lut: 20800, ff: 41600, dsp: 90, bram: 50 };
@@ -65,6 +66,8 @@ export default function SynthesisReport({
         </h2>
         <p className="mt-0.5 text-[11px] text-dim">what the toolchain would hand back</p>
       </header>
+
+      <Explain panel="report" />
 
       <div className="grid grid-cols-2 gap-2 p-3">
         <Stat k="INITIATION INTERVAL" v={`${est.ii} cyc`} sub={est.ii === 1 ? "one launch/clock" : "loop serialized"} />

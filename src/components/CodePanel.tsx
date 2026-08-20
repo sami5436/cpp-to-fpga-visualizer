@@ -1,6 +1,7 @@
 "use client";
 
 import { CycleState, ModeConfig, SourceLine, STAGES, sourceFor } from "@/lib/sim";
+import Explain from "./Explain";
 
 function badge(t: { idx: number[] }): string {
   if (t.idx.length === 1) return `i=${t.idx[0]}`;
@@ -21,6 +22,8 @@ export default function CodePanel({ mode, state }: { mode: ModeConfig; state: Cy
         </div>
         <span className="font-mono text-[10px] text-dim">vitis_hls · -O3</span>
       </header>
+
+      <Explain panel="code" />
 
       <div className="flex-1 overflow-auto px-1 py-3">
         <pre className="font-mono text-[12.5px] leading-[1.85]">

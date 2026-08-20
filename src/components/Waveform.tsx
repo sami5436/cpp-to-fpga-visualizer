@@ -1,6 +1,7 @@
 "use client";
 
 import { CycleState, STAGES } from "@/lib/sim";
+import Explain from "./Explain";
 
 const ROW = 30;
 const LABEL_W = 96;
@@ -71,6 +72,8 @@ export default function Waveform({
         </div>
         <span className="font-mono text-[10px] text-dim">t = {(cycle * 5).toFixed(0)} ns</span>
       </header>
+
+      <Explain panel="waveform" />
 
       <div className="p-3">
         <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full">

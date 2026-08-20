@@ -1,6 +1,7 @@
 "use client";
 
 import { CycleState, ModeConfig, STAGES } from "@/lib/sim";
+import Explain from "./Explain";
 
 const OFF = "#243247";
 
@@ -152,6 +153,8 @@ export default function Datapath({ mode, state }: { mode: ModeConfig; state: Cyc
           })}
         </div>
       </header>
+
+      <Explain panel="datapath" />
 
       <div className="flex flex-1 items-center overflow-x-auto p-3">
         <svg viewBox={`0 0 960 ${H}`} className="h-auto w-full min-w-[720px]">
@@ -469,38 +472,6 @@ export default function Datapath({ mode, state }: { mode: ModeConfig; state: Cyc
         </svg>
       </div>
 
-      <div className="grid grid-cols-2 border-t border-edge sm:grid-cols-4">
-        {STAGES.map((st, i) => {
-          const tok = state.byStage[i];
-          return (
-            <div
-              key={st.id}
-              className="border-r border-edge px-3 py-2.5 last:border-r-0"
-              style={{ background: tok ? `${st.color}0d` : undefined }}
-            >
-              <div className="flex items-center justify-between gap-2">
-                <span
-                  className="font-mono text-[10px] font-semibold tracking-wider"
-                  style={{ color: tok ? st.color : "#4b5b74" }}
-                >
-                  {st.label}
-                </span>
-                {tok && (
-                  <span
-                    className="pop rounded px-1.5 py-px font-mono text-[9px]"
-                    style={{ background: `${st.color}22`, color: st.color }}
-                  >
-                    {tok.idx.length === 1
-                      ? `i=${tok.idx[0]}`
-                      : `i=${tok.idx[0]}\u2025${tok.idx[tok.idx.length - 1]}`}
-                  </span>
-                )}
-              </div>
-              <div className="mt-0.5 font-mono text-[10px] text-dim">{st.sub}</div>
-            </div>
-          );
-        })}
-      </div>
     </section>
   );
 }
