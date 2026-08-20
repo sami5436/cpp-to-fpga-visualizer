@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import { CycleState, ModeConfig, STAGES } from "@/lib/sim";
+import Explain from "./Explain";
 
 const COLS = 30;
 const ROWS = 14;
@@ -166,6 +167,8 @@ export default function FabricGrid({ mode, state }: { mode: ModeConfig; state: C
           {used}/{total} tiles · {((used / total) * 100).toFixed(1)}%
         </span>
       </header>
+
+      <Explain panel="fabric" />
 
       <div className="flex flex-1 items-center overflow-x-auto p-3">
         <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full min-w-[640px]">

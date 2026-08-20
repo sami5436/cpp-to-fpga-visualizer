@@ -2,6 +2,7 @@
 
 import { CLOCK_MHZ, ModeConfig } from "@/lib/sim";
 import { CPU_CPI } from "./PipelineChart";
+import Explain from "./Explain";
 
 const CPU_GHZ = 3.2;
 const CPU_W = 65;
@@ -76,6 +77,8 @@ export default function CpuCompare({ mode }: { mode: ModeConfig }) {
           same algorithm, four different pieces of silicon
         </p>
       </header>
+
+      <Explain panel="compare" />
 
       <div className="divide-y divide-edge">
         {rows.map((r) => {

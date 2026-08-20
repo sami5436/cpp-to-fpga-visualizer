@@ -6,7 +6,10 @@ import ControlBar from "@/components/ControlBar";
 import CpuCompare from "@/components/CpuCompare";
 import Datapath from "@/components/Datapath";
 import FabricGrid from "@/components/FabricGrid";
+import LaundryStory from "@/components/LaundryStory";
+import Narrator from "@/components/Narrator";
 import PipelineChart from "@/components/PipelineChart";
+import Primer from "@/components/Primer";
 import SynthesisReport from "@/components/SynthesisReport";
 import Waveform from "@/components/Waveform";
 import {
@@ -137,6 +140,12 @@ export default function Page() {
           </div>
         </header>
 
+        {/* -------------------------------------------------------- primer */}
+        <div className="mb-4 grid gap-4 xl:grid-cols-2">
+          <Primer />
+          <LaundryStory />
+        </div>
+
         {/* ------------------------------------------------------ controls */}
         <ControlBar
           mode={mode}
@@ -149,6 +158,10 @@ export default function Page() {
           speed={speed}
           setSpeed={setSpeed}
         />
+
+        <div className="mt-4">
+          <Narrator mode={mode} state={state} />
+        </div>
 
         {/* --------------------------------------------------------- decks */}
         <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-12">
@@ -180,6 +193,7 @@ export default function Page() {
         <div className="mt-4">
           <CpuCompare mode={mode} />
         </div>
+
 
         {/* -------------------------------------------------------- notes */}
         <section className="panel mt-4 p-5">
