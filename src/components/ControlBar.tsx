@@ -21,7 +21,7 @@ function Btn({
       title={title}
       disabled={disabled}
       className={[
-        "flex h-9 items-center justify-center rounded-md border px-3 font-mono text-[12px] transition-colors",
+        "flex h-10 min-w-10 flex-1 items-center justify-center rounded-md border px-3 font-mono text-[12px] transition-colors sm:h-9 sm:flex-none",
         "disabled:cursor-not-allowed disabled:opacity-35",
         primary
           ? "border-cyan-400/40 bg-cyan-400/15 text-cyan-200 hover:enabled:bg-cyan-400/25"
@@ -57,7 +57,7 @@ export default function ControlBar({
   return (
     <div className="panel flex flex-col gap-3 p-3 lg:flex-row lg:items-center lg:gap-4">
       {/* transport */}
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-stretch gap-1.5">
         <Btn
           title="Reset to cycle 0"
           onClick={() => {
@@ -100,13 +100,14 @@ export default function ControlBar({
             setRunning(false);
             setCycle(Number(e.target.value));
           }}
-          className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-edge accent-cyan-400"
+          className="rng w-full"
+          style={{ ["--rng" as string]: "#22d3ee" }}
           aria-label="Clock cycle"
         />
       </div>
 
       {/* clock speed */}
-      <label className="flex items-center gap-2 font-mono text-[11px] text-dim">
+      <label className="flex w-full items-center gap-2 font-mono text-[11px] text-dim sm:w-auto">
         <span className="whitespace-nowrap">clk rate</span>
         <input
           type="range"
@@ -115,13 +116,14 @@ export default function ControlBar({
           step={20}
           value={1260 - speed}
           onChange={(e) => setSpeed(1260 - Number(e.target.value))}
-          className="h-1.5 w-24 cursor-pointer appearance-none rounded-full bg-edge accent-violet-400"
+          className="rng w-full sm:w-24"
+          style={{ ["--rng" as string]: "#a78bfa" }}
           aria-label="Simulation speed"
         />
       </label>
 
       {/* pragma / schedule selector */}
-      <div className="flex flex-wrap items-center gap-1.5">
+      <div className="grid grid-cols-2 gap-1.5 sm:flex sm:flex-wrap sm:items-center">
         {MODES.map((m) => {
           const on = m.id === mode.id;
           return (
@@ -129,7 +131,7 @@ export default function ControlBar({
               key={m.id}
               onClick={() => setMode(m.id)}
               className={[
-                "rounded-md border px-2.5 py-1.5 text-left transition-colors",
+                "rounded-md border px-2.5 py-2 text-left transition-colors sm:py-1.5",
                 on
                   ? "border-amber-400/50 bg-amber-400/12"
                   : "border-edge bg-panel-2 hover:border-edge-hi",

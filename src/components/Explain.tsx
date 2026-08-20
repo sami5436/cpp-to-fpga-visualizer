@@ -12,11 +12,13 @@ export default function Explain({ panel }: { panel: PanelKey }) {
 
   return (
     <details className="group border-b border-edge bg-cyan-400/[0.035]">
-      <summary className="flex cursor-pointer list-none items-start gap-2.5 px-4 py-2.5 hover:bg-cyan-400/[0.05] sm:px-5">
+      <summary className="flex cursor-pointer list-none flex-wrap items-start gap-x-2.5 gap-y-1 px-4 py-3 hover:bg-cyan-400/[0.05] sm:px-5 sm:py-2.5">
         <span className="mt-px shrink-0 text-[11px]" aria-hidden>
           💡
         </span>
-        <span className="text-[12px] leading-relaxed text-slate-300">{PANEL_LEAD[panel]}</span>
+        <span className="min-w-0 flex-1 text-[12px] leading-relaxed text-slate-300">
+          {PANEL_LEAD[panel]}
+        </span>
         <span className="ml-auto shrink-0 whitespace-nowrap font-mono text-[10px] text-cyan-400/80">
           <span className="group-open:hidden">
             {items.length} term{items.length > 1 ? "s" : ""} ▾

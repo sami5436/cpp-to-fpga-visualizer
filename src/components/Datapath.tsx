@@ -2,6 +2,7 @@
 
 import { CycleState, ModeConfig, STAGES } from "@/lib/sim";
 import Explain from "./Explain";
+import ScrollHint from "./ScrollHint";
 
 const OFF = "#243247";
 
@@ -125,7 +126,7 @@ export default function Datapath({ mode, state }: { mode: ModeConfig; state: Cyc
 
   return (
     <section className="panel flex h-full flex-col overflow-hidden">
-      <header className="flex items-center justify-between border-b border-edge px-4 py-2.5">
+      <header className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-edge px-4 py-2.5">
         <div>
           <h2 className="text-[11px] font-semibold tracking-[0.18em] text-slate-300">
             SYNTHESIZED DATAPATH
@@ -134,7 +135,7 @@ export default function Datapath({ mode, state }: { mode: ModeConfig; state: Cyc
             registers, DSP slices and block RAM inferred from the loop body
           </p>
         </div>
-        <div className="flex gap-1.5">
+        <div className="flex flex-wrap gap-1.5">
           {STAGES.map((s, i) => {
             const on = !!state.byStage[i];
             return (
@@ -156,7 +157,7 @@ export default function Datapath({ mode, state }: { mode: ModeConfig; state: Cyc
 
       <Explain panel="datapath" />
 
-      <div className="flex flex-1 items-center overflow-x-auto p-3">
+      <div className="xscroll flex flex-1 items-center p-3">
         <svg viewBox={`0 0 960 ${H}`} className="h-auto w-full min-w-[720px]">
           {/* address generator + memories -------------------------------- */}
           <Block
@@ -472,6 +473,7 @@ export default function Datapath({ mode, state }: { mode: ModeConfig; state: Cyc
         </svg>
       </div>
 
+      <ScrollHint />
     </section>
   );
 }
