@@ -13,7 +13,7 @@ export default function CodePanel({ mode, state }: { mode: ModeConfig; state: Cy
 
   return (
     <section className="panel flex h-full flex-col overflow-hidden">
-      <header className="flex items-center justify-between border-b border-edge px-4 py-2.5">
+      <header className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-edge px-4 py-2.5">
         <div className="flex items-center gap-2">
           <span className="text-[11px] font-semibold tracking-[0.18em] text-slate-300">
             dot8.cpp
@@ -26,7 +26,7 @@ export default function CodePanel({ mode, state }: { mode: ModeConfig; state: Cy
       <Explain panel="code" />
 
       <div className="flex-1 overflow-auto px-1 py-3">
-        <pre className="font-mono text-[12.5px] leading-[1.85]">
+        <pre className="font-mono text-[11.5px] leading-[1.9] sm:text-[12.5px]">
           {lines.map((l) => {
             const tok = l.stage !== undefined ? state.byStage[l.stage] : undefined;
             const live = !!tok;
@@ -37,7 +37,7 @@ export default function CodePanel({ mode, state }: { mode: ModeConfig; state: Cy
             return (
               <div
                 key={l.n}
-                className="relative flex items-center gap-3 px-3 transition-colors duration-150"
+                className="relative flex items-center gap-2 px-2.5 transition-colors duration-150 sm:gap-3 sm:px-3"
                 style={{
                   background: on ? `${color}14` : undefined,
                   boxShadow: on ? `inset 2px 0 0 ${color}` : undefined,

@@ -64,20 +64,20 @@ export default function Page() {
   const pass = state.result !== null && state.result === expected;
 
   return (
-    <main className="backdrop min-h-screen">
-      <div className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6 lg:px-8">
+    <main className="backdrop min-h-screen overflow-x-clip">
+      <div className="mx-auto max-w-[1500px] px-3 py-5 sm:px-6 sm:py-6 lg:px-8">
         {/* ---------------------------------------------------------- hero */}
         <header className="mb-5">
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] text-cyan-400/80">
                 <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
                 CYCLE-ACCURATE MODEL · XC7A35T-CLASS PART
               </div>
-              <h1 className="mt-2 text-3xl font-semibold tracking-tight text-slate-100 sm:text-4xl">
+              <h1 className="mt-2 text-[28px] font-semibold tracking-tight text-slate-100 sm:text-4xl">
                 Silicon Trace
               </h1>
-              <p className="mt-2 max-w-2xl text-[13.5px] leading-relaxed text-slate-400">
+              <p className="mt-2 max-w-2xl text-[13px] leading-relaxed text-slate-400 sm:text-[13.5px]">
                 Eight lines of C++, and the hardware they turn into. Press run and watch a single
                 loop iteration travel through block RAM, a DSP slice and an accumulator — then
                 change one pragma and watch the schedule, the floorplan and the resource report all
@@ -85,8 +85,8 @@ export default function Page() {
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
-              <div className="rounded-lg border border-edge bg-panel px-3.5 py-2">
+            <div className="grid w-full grid-cols-3 gap-2 sm:flex sm:w-auto sm:items-center">
+              <div className="rounded-lg border border-edge bg-panel px-3 py-2 sm:px-3.5">
                 <div className="font-mono text-[9.5px] tracking-wider text-dim">RESULT</div>
                 <div
                   className={`font-mono text-lg font-semibold ${
@@ -96,12 +96,12 @@ export default function Page() {
                   {state.result !== null ? state.result : "—"}
                 </div>
               </div>
-              <div className="rounded-lg border border-edge bg-panel px-3.5 py-2">
+              <div className="rounded-lg border border-edge bg-panel px-3 py-2 sm:px-3.5">
                 <div className="font-mono text-[9.5px] tracking-wider text-dim">GOLDEN</div>
                 <div className="font-mono text-lg font-semibold text-slate-300">{expected}</div>
               </div>
               <div
-                className={`rounded-lg border px-3.5 py-2 transition-colors ${
+                className={`rounded-lg border px-3 py-2 transition-colors sm:px-3.5 ${
                   pass
                     ? "border-emerald-400/40 bg-emerald-400/10"
                     : "border-edge bg-panel"
@@ -120,9 +120,9 @@ export default function Page() {
           </div>
 
           {/* toolchain ribbon */}
-          <div className="mt-5 flex flex-wrap items-center gap-1.5 overflow-hidden rounded-lg border border-edge bg-panel/60 px-3 py-2">
+          <div className="xscroll mt-5 flex items-center gap-1.5 rounded-lg border border-edge bg-panel/60 px-3 py-2">
             {FLOW.map((f, i) => (
-              <div key={f.k} className="flex items-center gap-1.5">
+              <div key={f.k} className="flex shrink-0 items-center gap-1.5">
                 <div className="rounded px-2 py-1">
                   <div className="font-mono text-[11px] text-slate-300">{f.k}</div>
                   <div className="font-mono text-[9px] text-dim">{f.v}</div>
@@ -134,14 +134,14 @@ export default function Page() {
                 )}
               </div>
             ))}
-            <div className="relative ml-auto hidden h-px flex-1 overflow-hidden bg-edge sm:block">
+            <div className="relative ml-auto hidden h-px min-w-24 flex-1 overflow-hidden bg-edge lg:block">
               <div className="sweep h-full w-1/3 bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
             </div>
           </div>
         </header>
 
         {/* -------------------------------------------------------- primer */}
-        <div className="mb-4 grid gap-4 xl:grid-cols-2">
+        <div className="mb-4 grid gap-3 sm:gap-4 xl:grid-cols-2">
           <Primer />
           <LaundryStory />
         </div>
@@ -159,44 +159,44 @@ export default function Page() {
           setSpeed={setSpeed}
         />
 
-        <div className="mt-4">
+        <div className="mt-3 sm:mt-4">
           <Narrator mode={mode} state={state} />
         </div>
 
         {/* --------------------------------------------------------- decks */}
-        <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-12">
-          <div className="xl:col-span-4">
+        <div className="mt-3 grid grid-cols-1 gap-3 sm:mt-4 sm:gap-4 xl:grid-cols-12">
+          <div className="min-w-0 xl:col-span-4">
             <CodePanel mode={mode} state={state} />
           </div>
-          <div className="xl:col-span-8">
+          <div className="min-w-0 xl:col-span-8">
             <Datapath mode={mode} state={state} />
           </div>
         </div>
 
-        <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-12">
-          <div className="xl:col-span-7">
+        <div className="mt-3 grid grid-cols-1 gap-3 sm:mt-4 sm:gap-4 xl:grid-cols-12">
+          <div className="min-w-0 xl:col-span-7">
             <FabricGrid mode={mode} state={state} />
           </div>
-          <div className="xl:col-span-5">
+          <div className="min-w-0 xl:col-span-5">
             <SynthesisReport mode={mode} est={est} />
           </div>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-3 sm:mt-4">
           <PipelineChart mode={mode} trace={trace} cycle={cycle} />
         </div>
 
-        <div className="mt-4">
+        <div className="mt-3 sm:mt-4">
           <Waveform trace={trace} cycle={cycle} />
         </div>
 
-        <div className="mt-4">
+        <div className="mt-3 sm:mt-4">
           <CpuCompare mode={mode} />
         </div>
 
 
         {/* -------------------------------------------------------- notes */}
-        <section className="panel mt-4 p-5">
+        <section className="panel mt-3 p-4 sm:mt-4 sm:p-5">
           <h2 className="text-[11px] font-semibold tracking-[0.18em] text-slate-300">
             THE ONE IDEA WORTH TAKING AWAY
           </h2>

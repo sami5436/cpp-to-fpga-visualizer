@@ -2,6 +2,7 @@
 
 import { CycleState, STAGES } from "@/lib/sim";
 import Explain from "./Explain";
+import ScrollHint from "./ScrollHint";
 
 const ROW = 30;
 const LABEL_W = 96;
@@ -63,7 +64,7 @@ export default function Waveform({
 
   return (
     <section className="panel flex flex-col overflow-hidden">
-      <header className="flex items-center justify-between border-b border-edge px-4 py-2.5">
+      <header className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-edge px-4 py-2.5">
         <div>
           <h2 className="text-[11px] font-semibold tracking-[0.18em] text-slate-300">
             WAVEFORM · RTL SIMULATION
@@ -75,8 +76,8 @@ export default function Waveform({
 
       <Explain panel="waveform" />
 
-      <div className="p-3">
-        <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full">
+      <div className="xscroll p-3">
+        <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full min-w-[860px]">
           {/* cycle ruler */}
           {trace.map((s) => (
             <g key={s.cycle}>
@@ -217,6 +218,8 @@ export default function Waveform({
           />
         </svg>
       </div>
+
+      <ScrollHint />
     </section>
   );
 }

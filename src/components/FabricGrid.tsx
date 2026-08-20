@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { CycleState, ModeConfig, STAGES } from "@/lib/sim";
 import Explain from "./Explain";
+import ScrollHint from "./ScrollHint";
 
 const COLS = 30;
 const ROWS = 14;
@@ -154,7 +155,7 @@ export default function FabricGrid({ mode, state }: { mode: ModeConfig; state: C
 
   return (
     <section className="panel flex h-full flex-col overflow-hidden">
-      <header className="flex items-center justify-between border-b border-edge px-4 py-2.5">
+      <header className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-b border-edge px-4 py-2.5">
         <div>
           <h2 className="text-[11px] font-semibold tracking-[0.18em] text-slate-300">
             FABRIC FLOORPLAN
@@ -170,7 +171,7 @@ export default function FabricGrid({ mode, state }: { mode: ModeConfig; state: C
 
       <Explain panel="fabric" />
 
-      <div className="flex flex-1 items-center overflow-x-auto p-3">
+      <div className="xscroll flex flex-1 items-center p-3">
         <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full min-w-[640px]">
           {/* the sea of unconfigured tiles */}
           {Array.from({ length: ROWS }, (_, r) =>
@@ -258,6 +259,8 @@ export default function FabricGrid({ mode, state }: { mode: ModeConfig; state: C
           })}
         </svg>
       </div>
+
+      <ScrollHint />
 
       <footer className="flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-edge px-4 py-2.5 text-[10px] text-dim">
         {(["clb", "bram", "dsp", "io"] as Kind[]).map((k) => (
