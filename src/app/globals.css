@@ -1,26 +1,107 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ink: #05070d;
+  --color-panel: #0b1018;
+  --color-panel-2: #0f1622;
+  --color-edge: #1c2635;
+  --color-edge-hi: #2b3a50;
+  --color-dim: #64748b;
+  --color-fetch: #22d3ee;
+  --color-load: #a78bfa;
+  --color-mul: #fbbf24;
+  --color-acc: #34d399;
+  --color-wire: #334155;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: #e2e8f0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* PCB-ish backdrop: a fine grid plus two soft process-corner glows. */
+.backdrop {
+  background-image:
+    radial-gradient(800px 500px at 12% -5%, rgba(34, 211, 238, 0.1), transparent 60%),
+    radial-gradient(700px 500px at 95% 0%, rgba(167, 139, 250, 0.09), transparent 60%),
+    linear-gradient(to right, rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 44px 44px, 44px 44px;
+}
+
+.panel {
+  background: linear-gradient(180deg, rgba(15, 22, 34, 0.9), rgba(9, 13, 20, 0.9));
+  border: 1px solid var(--color-edge);
+  border-radius: 0.75rem;
+}
+
+/* Current flowing down an active net. */
+.flow {
+  stroke-dasharray: 5 7;
+  animation: flow 0.55s linear infinite;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+.blink {
+  animation: blink 1s steps(2, end) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.pop {
+  animation: pop 0.35s ease-out;
+}
+@keyframes pop {
+  from {
+    transform: scale(0.82);
+    opacity: 0.2;
+  }
+}
+
+.sweep {
+  animation: sweep 2.4s linear infinite;
+}
+@keyframes sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow,
+  .blink,
+  .pop,
+  .sweep {
+    animation: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-thumb {
+  background: #26344a;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
 }
